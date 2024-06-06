@@ -1,0 +1,14 @@
+<h1>Edit This Todo</h1>
+
+<%= form_with(model: @todo, local: true) do |f| %>
+  
+    <div>
+      <%= f.label :title %>
+      <%= f.text_field :title, autofocus: true %>
+    </div>
+  
+    <div>
+      <%= f.submit %>
+    </div>
+
+<% end %>

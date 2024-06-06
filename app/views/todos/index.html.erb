@@ -1,0 +1,26 @@
+<h1>Todos</h1>
+
+<h3>You have <%= pluralize(@uncompleted_todos_count, "thing") %> to do today</h3>
+
+<ul>
+  <% @todos.each do |todo| %>
+    <li>
+      <%= todo.title %>
+      <span>
+        <% if todo.completed? %>
+          completed
+        <% else %>
+          <%= link_to "mark as completed", todos_path %>
+        <% end %>
+      </span>
+      <span>
+        <%= link_to "Edit", edit_todo_path(todo) %>
+      </span>
+      <span>
+        <%= link_to "Delete", todo_path(todo), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+      </span>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "New Todo", new_todo_path %>
