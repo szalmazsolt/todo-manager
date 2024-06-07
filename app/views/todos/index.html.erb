@@ -10,25 +10,33 @@
     <ul class="pl-5">
       <% @todos.each do |todo| %>
         <li class="mb-2">
-          <div class="flex justify-between items-center bg-gray-100 p-2 rounded-md">
-            <div class="text-lg">
+          <div class="flex justify-between items-center bg-gray-50 p-2 rounded-md">
+            <div class="text-lg text-gray-500">
               <%= todo.title %>
             </div>
             <div class="flex space-x-2">
               <% if todo.completed? %>
                 <span>
-                  <%= link_to "Mark as uncompleted", toggle_completed_todo_path(todo), class: "text-blue-500", data: { turbo_method: :patch } %>
+                  <%= link_to toggle_completed_todo_path(todo), data: { turbo_method: :patch } do %>
+                    <i class="fas fa-times text-blue-500 mr-4"></i>
+                  <% end %>
                 </span>
               <% else %>
                 <span>
-                  <%= link_to "Mark as completed", toggle_completed_todo_path(todo), class: "text-green-500", data: { turbo_method: :patch } %>
+                  <%= link_to toggle_completed_todo_path(todo), data: { turbo_method: :patch } do %>
+                    <i class="fas fa-check text-green-500 mr-4"></i>
+                  <% end %>
                 </span>
               <% end %>
               <span>
-                <%= link_to "Edit", edit_todo_path(todo), class: "text-yellow-500" %>
+                <%= link_to edit_todo_path(todo) do %>
+                  <i class="fas fa-edit text-yellow-500 mr-4"></i>
+                <% end %>
               </span>
               <span>
-                <%= link_to "Delete", todo_path(todo), class: "text-red-500", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+                <%= link_to todo_path(todo), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+                  <i class="fas fa-trash text-red-500"></i>
+                <% end %>
               </span>
             </div>
           </div>

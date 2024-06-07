@@ -8,15 +8,24 @@
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <% if flash[:notice] %>
-      <p>
-        <%= flash[:notice] %>
-      </p>
+    <% flash.each do |message_type, message| %>
+      <% if message_type == "notice" %>
+        <div class="bg-green-500 text-white text-center p-4">
+          <%= message %>
+        </div>
+      <% else %>
+        <div class="bg-red-500 text-white text-center p-4">
+          <%= message %>
+        </div>
+      <% end %>
     <% end %>
+
     <%= yield %>
+
   </body>
 </html>
