@@ -1,0 +1,14 @@
+<% if todo.errors.any? %>
+  <div>
+    <h2>
+      <%= pluralize(todo.errors.size, "error") %> prohibited this todo from being saved:
+    </h2>
+      <ul>
+        <% todo.errors.full_messages.each do |msg| %>
+          <li>
+            <%= msg %>
+          </li>
+        <% end %>
+      </ul>
+  </div>
+<% end %>
