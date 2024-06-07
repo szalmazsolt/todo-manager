@@ -8,9 +8,9 @@
       <%= todo.title %>
       <span>
         <% if todo.completed? %>
-          completed
+          <%= link_to "Mark as uncompleted", toggle_completed_todo_path(todo), data: { turbo_method: :patch } %>
         <% else %>
-          <%= link_to "mark as completed", todos_path %>
+          <%= link_to "Mark as completed", toggle_completed_todo_path(todo), data: { turbo_method: :patch } %>
         <% end %>
       </span>
       <span>
