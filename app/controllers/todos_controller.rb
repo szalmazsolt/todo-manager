@@ -12,6 +12,7 @@ class TodosController < ApplicationController
   def create
     @todo = Todo.new(todos_params)
     if @todo.save
+      flash[:notice] = "Todo was successfully created"
       redirect_to todos_path
     else
       render :new, status: :unprocessable_entity
@@ -26,6 +27,7 @@ class TodosController < ApplicationController
     @todo = Todo.find(params[:id])
 
     if @todo.update(todos_params)
+      flash[:notice] = "Todo text was successfully updated"
       redirect_to todos_path
     else
       render :edit, status: :unprocessable_entity
@@ -34,13 +36,19 @@ class TodosController < ApplicationController
 
   def toggle_completed
     @todo = Todo.find(params[:id])
-    @todo.toggle!(:completed)
-    redirect_to todos_path
+    if @todo.toggle!(:completed)
+      flash[:notice] = "Todo completed status was successfully updated" 
+      redirect_to todos_path
+    else
+      flash.now[:alert] = "Todo completed status could not be updated"
+      render :index, status: :unprocessable_entity
+    end
   end
 
   def destroy
     @todo = Todo.find(params[:id])
     @todo.destroy
+    flash[:notice] = "Todo was successfully deleted"
     redirect_to todos_url, status: :see_other
   end
 

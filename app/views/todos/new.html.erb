@@ -1,6 +1,6 @@
 <h1>Add New Todo</h1>
 
-<%= form_with(model: @todo, local: true) do |f| %>
+<%= form_with(model: @todo) do |f| %>
 
   <% if @todo.errors.any? %>
     <div>
