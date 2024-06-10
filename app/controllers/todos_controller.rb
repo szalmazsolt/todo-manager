@@ -5,6 +5,10 @@ class TodosController < ApplicationController
     @uncompleted_todos_count = uncompleted_count
   end
 
+  def show
+    redirect_to todos_path
+  end
+
   def new
     @todo = Todo.new
   end
