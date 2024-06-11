@@ -1,6 +1,6 @@
 <%= form_with(model: user, class: "flex flex-col items-center justify-start pt-8") do |f| %>
 
-  <%= render partial: "shared/errors", locals: { active_record_obj: @user, model: :user } %>
+  <%= render partial: "shared/errors", locals: { active_record_obj: user, model: :user } %>
 
   <div class="mb-4 w-full md:w-1/3">
     <%= f.label :username, class: "block text-gray-700 text-sm font-bold mb-2" %>
@@ -23,6 +23,7 @@
   </div>
 
   <div>
-    <%= f.submit "Register", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" %>
+    <% submit_text = user.new_record? ? "Register" : "Update Profile" %>
+    <%= f.submit submit_text, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" %>
   </div>
 <% end %>
