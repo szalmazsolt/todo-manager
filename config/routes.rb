@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   
   get "up" => "rails/health#show", as: :rails_health_check
 
-  root "todos#index"
+  root "pages#home"
 
   resources :todos do
     member do
@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   get "register" => "users#new", as: "register"
   resources :users, except: [:new]
+
+  resource :session, only: [:new, :create, :destroy]
 
   
 end
