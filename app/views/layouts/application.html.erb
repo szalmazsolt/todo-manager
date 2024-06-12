@@ -13,6 +13,38 @@
   </head>
 
   <body>
+    <div>
+      <nav>
+        <ul>
+          <li>
+            <%= link_to "Home", root_path %>
+          </li>
+
+          <% if logged_in? %>
+            <li>
+              <%= link_to "Dashboard #{ current_user.username }", user_path(current_user) %>
+            </li>
+            <li>
+              <%= link_to "My Todos", todos_path %>
+            </li>
+            <li>
+              <%= link_to "Logout", logout_path, data: { turbo_method: :delete } %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to "Register", register_path %>
+            </li>
+            <li>
+              <%= link_to "Login", login_path %>
+            </li>
+          <% end %>
+
+          
+
+        </ul>
+      </nav>
+    </div>
+
     <% flash.each do |message_type, message| %>
       <% if message_type == "notice" %>
         <div class="bg-green-500 text-white text-center p-4">
