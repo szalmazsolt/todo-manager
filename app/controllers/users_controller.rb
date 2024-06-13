@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
 
+  before_action :require_logged_in, except: [:new, :create]
+  before_action :require_same_user, except: [:new, :create]
+
   def index
     @users = User.all
   end
@@ -19,7 +22,7 @@ class UsersController < ApplicationController
 
     if @user.save
       flash[:notice] = "You have successsfully signed up!"
-      redirect_to user_path(@user)
+      redirect_to user_todo_path(@user)
     else
       render :new, status: :unprocessable_entity
     end
@@ -43,6 +46,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
+    session[:user_id] = nil
     @user.destroy
     flash[:notice] = "You have successsfully deleted your account!"
     redirect_to root_url, status: :see_other

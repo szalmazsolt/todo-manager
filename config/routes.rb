@@ -5,18 +5,21 @@ Rails.application.routes.draw do
 
   root "pages#home"
 
-  resources :todos do
-    member do
-      patch :toggle_completed
-    end
-  end
-
   get "register" => "users#new", as: "register"
-  resources :users, except: [:new]
 
   get "login" => "sessions#new", as: "login"
   post "login" => "sessions#create"
   delete "logout" => "sessions#destroy", as: "logout"
+
+  resources :users, only: [:create, :edit, :update, :destroy]
+
+  resources :users, except: [:index, :new] do
+    resources :todos do
+      member do
+        patch :toggle_completed
+      end
+    end
+  end
 
   
 end

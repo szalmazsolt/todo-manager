@@ -1,18 +1,23 @@
-<h1><%= @user.username %></h1>
+<div class="mx-auto text-center w-full max-w-xl">
+  <h1 class="text-4xl font-bold my-4"><%= @user.username %></h1>
 
-<p>
-  <%= @user.email %>
-</p>
+  <p class="text-xl mb-2">
+    <%= @user.email %>
+  </p>
 
-<div>
-  <%= link_to 'Edit profile', edit_user_path(@user) %>
-  <%= link_to "Delete account", user_path(@user), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-</div>
+  <div class="mb-4">
+    <%= link_to 'Edit profile', edit_user_path(@user), class: "inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    <%= link_to "Delete account", user_path(@user), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "inline-block bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4" %>
+  </div>
 
-<div>
-  <%= link_to "Add todo", new_todo_path %>
-</div>
+  <h3 class="text-xl mb-4">Manage My Todo List</h3>
 
-<div>
-  <%= link_to "Logout", logout_path, data: { turbo_method: :delete } %>
+  <div class="mb-4">
+    <%= link_to "View My Todos", user_todos_path(@user), class: "inline-block bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" %>
+  </div>
+
+  <div class="mb-4">
+    <%= link_to "Add New Todo", new_user_todo_path(@user), class: "inline-block bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
+  </div>
+
 </div>

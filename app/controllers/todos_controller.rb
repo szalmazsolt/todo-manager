@@ -1,7 +1,10 @@
 class TodosController < ApplicationController
 
+  before_action :require_logged_in
+  before_action :require_same_user
+
   def index
-    @todos = Todo.all
+    @todos = current_user.todos
     @uncompleted_todos_count = uncompleted_count
   end
 
@@ -11,6 +14,7 @@ class TodosController < ApplicationController
 
   def new
     @todo = Todo.new
+    @user = current_user
   end
 
   def create
@@ -19,7 +23,7 @@ class TodosController < ApplicationController
    
     if @todo.save
       flash[:notice] = "Todo was successfully created"
-      redirect_to todos_path
+      redirect_to user_todos_path(current_user)
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,6 +31,7 @@ class TodosController < ApplicationController
 
   def edit
     @todo = Todo.find(params[:id])
+    @user = current_user
   end
 
   def update
@@ -34,7 +39,7 @@ class TodosController < ApplicationController
 
     if @todo.update(todos_params)
       flash[:notice] = "Todo text was successfully updated"
-      redirect_to todos_path
+      redirect_to user_todos_path(current_user)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -44,7 +49,7 @@ class TodosController < ApplicationController
     @todo = Todo.find(params[:id])
     if @todo.toggle!(:completed)
       flash[:notice] = "Todo completed status was successfully updated" 
-      redirect_to todos_path
+      redirect_to user_todos_path(current_user)
     else
       flash.now[:alert] = "Todo completed status could not be updated"
       render :index, status: :unprocessable_entity
@@ -55,7 +60,7 @@ class TodosController < ApplicationController
     @todo = Todo.find(params[:id])
     @todo.destroy
     flash[:notice] = "Todo was successfully deleted"
-    redirect_to todos_url, status: :see_other
+    redirect_to user_todos_url(current_user), status: :see_other
   end
 
   private
