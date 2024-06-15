@@ -33,9 +33,13 @@ class ApplicationController < ActionController::Base
       user = User.find(params[:id])
     end
     unless same_user?(user)
-      flash[:alert] = "You can only manage your own todos"
+      flash[:alert] = "You can only manage your own account"
       redirect_to user_path(current_user)
     end
+
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_url, status: :see_other
+
   end
 
 end

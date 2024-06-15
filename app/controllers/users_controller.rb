@@ -3,10 +3,6 @@ class UsersController < ApplicationController
   before_action :require_logged_in, except: [:new, :create]
   before_action :require_same_user, except: [:new, :create]
 
-  def index
-    @users = User.all
-  end
-
   def show
     @user = User.find(params[:id])
     rescue ActiveRecord::RecordNotFound
@@ -21,8 +17,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      session[:user_id] = @user.id
       flash[:notice] = "You have successsfully signed up!"
-      redirect_to user_todo_path(@user)
+      redirect_to user_path(@user)
     else
       render :new, status: :unprocessable_entity
     end

@@ -5,11 +5,7 @@ class TodosController < ApplicationController
 
   def index
     @todos = current_user.todos
-    @uncompleted_todos_count = uncompleted_count
-  end
-
-  def show
-    redirect_to todos_path
+    @uncompleted_todos_count = uncompleted_todos.count
   end
 
   def new
@@ -71,8 +67,8 @@ class TodosController < ApplicationController
       .permit(:title)
   end
 
-  def uncompleted_count
-    @todos.where(completed: false).count
+  def uncompleted_todos
+    @todos.where(completed: false)
   end
 
 end
